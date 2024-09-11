@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>link excel sheet</title>
+    <link rel="stylesheet" type="text/css" href="1.css">
+</head>
+<body>
+    <div class="container">
+
+        <form name="submit-to-google-sheet">
+            <h1>Contact Form</h1>
+            <input type="text" class="firstname" placeholder="Name" name="name" required>
+            <input type="email" placeholder="Email" name="email" required>
+            <input type="number" placeholder="Phone.no" name="phone" required>
+            
+            <select required class="option" name="mood">
+                <option>Why you want to apply here</option>
+                <option>for money</option>
+                <option>for Internship</option>
+                <option>for experience</option>
+            </select>
+
+        
+            <textarea class="textarea" row="4" placeholder="How we can help You" name="feedback"></textarea>-
+            <button type="submit" class="submit">Submit</button>
+            <button type="reset" class="Reset">Reset</button>
+            <br>
+            <span id="success" class="success"></span>
+        </form>
+
+
+
+        <script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbx5BbP1loYJlFwfoJGntJn7w9_O1gQRqZvrv1f3-r8ih54yrnvXGbox-yuCjvTblRrQpA/exec'
+  const form = document.forms['submit-to-google-sheet']
+  
+  const success = document.getElementById('success');
+  
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})                               
+      
+    
+    .then(response => {
+        success.innerHTML = "data successfully submitted";
+        setTimeout(function(){
+            success.innerHTML = "";
+        },5000)
+        form.reset();
+})
+      
+
+.catch(error => console.error('Error!', error.message))
+  })
+</script>
+  
+        
+    </div>
+</body>
+</html>
